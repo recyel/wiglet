@@ -6,7 +6,7 @@ const UAParser = require('ua-parser-js'); // Parse User-Agent
 require('dotenv').config(); // Environment variables
 
 const app = express();
-const PORT = 3000;
+const PORT = 4591;
 
 // Middleware
 app.use(cors());
