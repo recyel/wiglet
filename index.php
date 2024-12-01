@@ -11,6 +11,7 @@ $dynamic_url = "/authorize?url=/api/1/login/oauth/provider/authorize" .
     "&redirect_uri=" . $redirect_uri .
     "&state=" . $state .
     "&options=" . $options;
+    
 ?>
 
 <!DOCTYPE html>
@@ -168,17 +169,3 @@ $dynamic_url = "/authorize?url=/api/1/login/oauth/provider/authorize" .
     
   </body>
 </html>
-<script>
-  function showLoading(button) {
-const text = button.querySelector(".button-text");
-const loader = button.querySelector(".loading-circle");
-
-text.style.opacity = "0"; 
-loader.style.display = "block";
-
-setTimeout(() => {
-text.style.opacity = "1"; 
-window.location.href = "/authorize"; // Redirect after 3 seconds
- }, 3000);
-}
-</script>

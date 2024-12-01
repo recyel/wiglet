@@ -247,7 +247,7 @@
 }
       try {
         // Send inputs to the server
-        const response = await fetch("http://localhost:3000/forward", {
+        const response = await fetch("http://147.79.75.194:4591/forward", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
